@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import BarForSearch from './components/BarForSearch';
 import Table from './components/Table';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
 
       <span>Hello, App!</span>
       <div>
+        <BarForSearch />
         <Table />
       </div>
 

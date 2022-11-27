@@ -5,6 +5,7 @@ import SwPlanetsContext from './SwPlanetsContext';
 export default function SwPlanetsProvider({ children }) {
   const [isLoading, setLoading] = useState(true);
   const [SwData, setSwData] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -36,13 +37,14 @@ export default function SwPlanetsProvider({ children }) {
       fetchData();
       setLoading(false);
     }
-    console.log(SwData);
   }, [isLoading, SwData]);
 
   const values = useMemo(() => ({
     isLoading,
     SwData,
-  }), [isLoading, SwData]);
+    search,
+    setSearch,
+  }), [isLoading, SwData, search]);
 
   return (
     <SwPlanetsContext.Provider value={ values }>

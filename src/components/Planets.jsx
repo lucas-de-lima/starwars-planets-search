@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 function Planets({ planet }) {
@@ -25,24 +24,6 @@ function Planets({ planet }) {
   );
 }
 
-Planets.propTypes = {
-  planet: PropTypes.shape({
-    climate: PropTypes.string,
-    created: PropTypes.string,
-    diameter: PropTypes.string,
-    edited: PropTypes.string,
-    films: PropTypes.shape({
-      map: PropTypes.func,
-    }),
-    gravity: PropTypes.string,
-    name: PropTypes.string,
-    orbital_period: PropTypes.string,
-    population: PropTypes.string,
-    rotation_period: PropTypes.string,
-    surface_water: PropTypes.string,
-    terrain: PropTypes.string,
-    url: PropTypes.string,
-  }).isRequired,
-};
+Planets.propTypes = {}.isRequired;
 
 export default Planets;
