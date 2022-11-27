@@ -3,19 +3,15 @@ import './App.css';
 import BarForSearch from './components/BarForSearch';
 import FiltersBar from './components/FiltersBar';
 import Table from './components/Table';
+import SwPlanetsProvider from './context/SwPlanetsProvider';
 
 function App() {
   return (
-    <>
-
-      <span>Hello, App!</span>
-      <div>
-        <BarForSearch />
-        <FiltersBar />
-        <Table />
-      </div>
-
-    </>
+    <SwPlanetsProvider>
+      <BarForSearch />
+      <FiltersBar />
+      <Table />
+    </SwPlanetsProvider>
   );
 }
 

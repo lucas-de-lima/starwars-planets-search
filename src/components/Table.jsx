@@ -3,7 +3,7 @@ import SwPlanetsContext from '../context/SwPlanetsContext';
 import Planets from './Planets';
 
 export default function Table() {
-  const { isLoading, SwData, search, filtredPlanets,
+  const { SwData, search, filtredPlanets,
     setFiltredPlanets } = useContext(SwPlanetsContext);
 
   useEffect(() => {
@@ -11,9 +11,7 @@ export default function Table() {
       .toUpperCase().includes((search.toUpperCase()))));
   }, [search]);
 
-  return isLoading ? (
-    <p>Carregando...</p>
-  ) : (
+  return (
     <div>
       <table>
         <thead>

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
 import SwPlanetsContext from './SwPlanetsContext';
 
 export default function SwPlanetsProvider({ children }) {
@@ -78,6 +77,4 @@ export default function SwPlanetsProvider({ children }) {
   );
 }
 
-SwPlanetsProvider.propTypes = {
-  children: PropTypes.element.isRequired,
-};
+SwPlanetsProvider.propTypes = {}.isRequerid;

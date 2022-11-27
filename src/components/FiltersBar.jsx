@@ -17,7 +17,6 @@ function FiltersBar() {
     filters.forEach((filter) => {
       switch (filter.comparisonFilter) {
       case 'menor que':
-        console.log(filter.columnFilter);
         setFiltredPlanets((prevState) => prevState
           .filter((element) => +element[filter.columnFilter] < +filter.valueFilter));
         break;
