@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SwPlanetsContext from '../context/SwPlanetsContext';
 import Planets from './Planets';
 
 export default function Table() {
-  const { isLoading, SwData, search } = useContext(SwPlanetsContext);
-  const filterByName = () => SwData.filter((element) => element.name
-    .toUpperCase().includes((search.toUpperCase())));
+  const { isLoading, SwData, search, filtredPlanets,
+    setFiltredPlanets } = useContext(SwPlanetsContext);
+
+  useEffect(() => {
+    setFiltredPlanets(SwData.filter((element) => element.name
+      .toUpperCase().includes((search.toUpperCase()))));
+  }, [search]);
+
   return isLoading ? (
     <p>Carregando...</p>
   ) : (
@@ -29,7 +34,7 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          { filterByName().map((data) => (
+          { filtredPlanets.map((data) => (
             <tr key={ data.name }>
               <Planets planet={ data } />
             </tr>

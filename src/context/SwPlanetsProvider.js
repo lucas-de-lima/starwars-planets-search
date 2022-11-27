@@ -6,6 +6,10 @@ export default function SwPlanetsProvider({ children }) {
   const [isLoading, setLoading] = useState(true);
   const [SwData, setSwData] = useState([]);
   const [search, setSearch] = useState('');
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
+  const [filtredPlanets, setFiltredPlanets] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,6 +41,10 @@ export default function SwPlanetsProvider({ children }) {
       fetchData();
       setLoading(false);
     }
+
+    if (!isLoading) {
+      setFiltredPlanets(SwData);
+    }
   }, [isLoading, SwData]);
 
   const values = useMemo(() => ({
@@ -44,7 +52,16 @@ export default function SwPlanetsProvider({ children }) {
     SwData,
     search,
     setSearch,
-  }), [isLoading, SwData, search]);
+    columnFilter,
+    setColumnFilter,
+    comparisonFilter,
+    setComparisonFilter,
+    valueFilter,
+    setValueFilter,
+    filtredPlanets,
+    setFiltredPlanets,
+  }), [isLoading, SwData, search, columnFilter,
+    comparisonFilter, valueFilter, filtredPlanets]);
 
   return (
     <SwPlanetsContext.Provider value={ values }>
