@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import SwPlanetsContext from '../context/SwPlanetsContext';
 
 function FiltersBar() {
@@ -8,28 +8,38 @@ function FiltersBar() {
     setComparisonFilter,
     valueFilter,
     setValueFilter, filtredPlanets,
-    setFiltredPlanets } = useContext(SwPlanetsContext);
+    setFiltredPlanets, filters, setFilters } = useContext(SwPlanetsContext);
+
+  useEffect(() => {
+    filters.forEach((filter) => {
+      switch (filter.comparisonFilter) {
+      case 'menor que':
+        setFiltredPlanets(filtredPlanets
+          .filter((element) => +element[filter.columnFilter] < +filter.valueFilter));
+        break;
+
+      case 'maior que':
+        setFiltredPlanets(filtredPlanets
+          .filter((element) => +element[filter.columnFilter] > +filter.valueFilter));
+        break;
+
+      case 'igual a':
+        setFiltredPlanets(filtredPlanets
+          .filter((element) => element[filter.columnFilter] === filter.valueFilter));
+        break;
+
+      default:
+        break;
+      }
+    });
+  }, [filters]);
 
   const createNumericFilter = () => {
-    switch (comparisonFilter) {
-    case 'menor que':
-      setFiltredPlanets(filtredPlanets
-        .filter((element) => element[columnFilter] < +valueFilter));
-      break;
-
-    case 'maior que':
-      setFiltredPlanets(filtredPlanets
-        .filter((element) => element[columnFilter] > +valueFilter));
-      break;
-
-    case 'igual a':
-      setFiltredPlanets(filtredPlanets
-        .filter((element) => element[columnFilter] === valueFilter));
-      break;
-
-    default:
-      break;
-    }
+    setFilters((prevState) => [...prevState, {
+      columnFilter,
+      comparisonFilter,
+      valueFilter,
+    }]);
   };
 
   return (
@@ -70,6 +80,13 @@ function FiltersBar() {
         Filtro
 
       </button>
+      { filters.map((filter) => (
+        <div key={ filter.columnFilter }>
+          <p>{filter.columnFilter}</p>
+          <p>{filter.comparisonFilter}</p>
+          <p>{filter.valueFilter}</p>
+        </div>
+      )) }
     </div>
   );
 }

@@ -10,6 +10,7 @@ export default function SwPlanetsProvider({ children }) {
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
   const [filtredPlanets, setFiltredPlanets] = useState([]);
+  const [filters, setFilters] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -60,8 +61,10 @@ export default function SwPlanetsProvider({ children }) {
     setValueFilter,
     filtredPlanets,
     setFiltredPlanets,
+    filters,
+    setFilters,
   }), [isLoading, SwData, search, columnFilter,
-    comparisonFilter, valueFilter, filtredPlanets]);
+    comparisonFilter, valueFilter, filtredPlanets, filters]);
 
   return (
     <SwPlanetsContext.Provider value={ values }>
