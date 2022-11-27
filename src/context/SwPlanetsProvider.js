@@ -37,7 +37,7 @@ export default function SwPlanetsProvider({ children }) {
       setLoading(false);
     }
     console.log(SwData);
-  }, [isLoading]);
+  }, [isLoading, SwData]);
 
   const values = useMemo(() => ({
     isLoading,
