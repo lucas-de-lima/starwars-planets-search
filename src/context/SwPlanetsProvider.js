@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import SwPlanetsContext from './SwPlanetsContext';
 
 export default function SwPlanetsProvider({ children }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [SwData, setSwData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        setLoading(true);
+        // setLoading(true);
 
         const response = await fetch('https://swapi.dev/api/planets');
 
@@ -27,13 +28,15 @@ export default function SwPlanetsProvider({ children }) {
       } catch (error) {
         console.log('Error');
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     }
 
     if (isLoading) {
       fetchData();
+      setLoading(false);
     }
+    console.log(SwData);
   }, [isLoading]);
 
   const values = useMemo(() => ({
