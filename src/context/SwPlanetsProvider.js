@@ -30,7 +30,16 @@ export default function SwPlanetsProvider({ children }) {
         setLoading(false);
       }
     }
-  });
+
+    if (isLoading) {
+      fetchData();
+    }
+  }, [isLoading]);
+
+  const values = useMemo(() => ({
+    isLoading,
+    SwData,
+  }), [isLoading, SwData]);
 
   return (
     <SwPlanetsContext.Provider value={ values }>
