@@ -7,25 +7,28 @@ function FiltersBar() {
     comparisonFilter,
     setComparisonFilter,
     valueFilter,
-    setValueFilter, filtredPlanets,
+    setValueFilter,
     setFiltredPlanets, filters, setFilters,
-    columnSelect, setColumnSelect } = useContext(SwPlanetsContext);
+    columnSelect, setColumnSelect, SwData,
+  } = useContext(SwPlanetsContext);
 
   useEffect(() => {
+    setFiltredPlanets(SwData);
     filters.forEach((filter) => {
       switch (filter.comparisonFilter) {
       case 'menor que':
-        setFiltredPlanets(filtredPlanets
+        console.log(filter.columnFilter);
+        setFiltredPlanets((prevState) => prevState
           .filter((element) => +element[filter.columnFilter] < +filter.valueFilter));
         break;
 
       case 'maior que':
-        setFiltredPlanets(filtredPlanets
+        setFiltredPlanets((prevState) => prevState
           .filter((element) => +element[filter.columnFilter] > +filter.valueFilter));
         break;
 
       case 'igual a':
-        setFiltredPlanets(filtredPlanets
+        setFiltredPlanets((prevState) => prevState
           .filter((element) => element[filter.columnFilter] === filter.valueFilter));
         break;
 
@@ -43,6 +46,18 @@ function FiltersBar() {
       valueFilter,
     }]);
     setColumnSelect((prevState) => prevState.filter((option) => option !== columnFilter));
+  };
+
+  const removeFilter = (columnToRemove) => {
+    setFilters((prevState) => prevState
+      .filter((filter) => filter.columnFilter !== columnToRemove));
+    setColumnSelect((prevState) => [...prevState, columnToRemove]);
+  };
+
+  const removeAllFilters = () => {
+    setFilters([]);
+    setColumnSelect(['population', 'orbital_period',
+      'diameter', 'rotation_period', 'surface_water']);
   };
 
   return (
@@ -81,11 +96,26 @@ function FiltersBar() {
         Filtro
 
       </button>
+      <button
+        data-testid="button-remove-filters"
+        type="button"
+        onClick={ removeAllFilters }
+      >
+        Remover todas filtragens
+
+      </button>
       { filters.map((filter) => (
-        <div key={ filter.columnFilter }>
+        <div data-testid="filter" key={ filter.columnFilter }>
           <p>{filter.columnFilter}</p>
           <p>{filter.comparisonFilter}</p>
           <p>{filter.valueFilter}</p>
+          <button
+            type="button"
+            onClick={ () => removeFilter(filter.columnFilter) }
+          >
+            X
+
+          </button>
         </div>
       )) }
     </div>
