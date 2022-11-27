@@ -8,7 +8,8 @@ function FiltersBar() {
     setComparisonFilter,
     valueFilter,
     setValueFilter, filtredPlanets,
-    setFiltredPlanets, filters, setFilters } = useContext(SwPlanetsContext);
+    setFiltredPlanets, filters, setFilters,
+    columnSelect, setColumnSelect } = useContext(SwPlanetsContext);
 
   useEffect(() => {
     filters.forEach((filter) => {
@@ -32,7 +33,8 @@ function FiltersBar() {
         break;
       }
     });
-  }, [filters]);
+    setColumnFilter(columnSelect[0]);
+  }, [filters, columnSelect]);
 
   const createNumericFilter = () => {
     setFilters((prevState) => [...prevState, {
@@ -40,6 +42,7 @@ function FiltersBar() {
       comparisonFilter,
       valueFilter,
     }]);
+    setColumnSelect((prevState) => prevState.filter((option) => option !== columnFilter));
   };
 
   return (
@@ -49,11 +52,9 @@ function FiltersBar() {
         value={ columnFilter }
         onChange={ (event) => setColumnFilter(event.target.value) }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        { columnSelect.map((option) => (
+          <option value={ option } key={ option }>{ option }</option>
+        )) }
       </select>
 
       <select

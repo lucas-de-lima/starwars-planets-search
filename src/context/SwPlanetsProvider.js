@@ -11,6 +11,8 @@ export default function SwPlanetsProvider({ children }) {
   const [valueFilter, setValueFilter] = useState(0);
   const [filtredPlanets, setFiltredPlanets] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [columnSelect, setColumnSelect] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
 
   useEffect(() => {
     async function fetchData() {
@@ -63,8 +65,11 @@ export default function SwPlanetsProvider({ children }) {
     setFiltredPlanets,
     filters,
     setFilters,
+    columnSelect,
+    setColumnSelect,
   }), [isLoading, SwData, search, columnFilter,
-    comparisonFilter, valueFilter, filtredPlanets, filters]);
+    comparisonFilter, valueFilter, filtredPlanets, filters,
+    columnSelect]);
 
   return (
     <SwPlanetsContext.Provider value={ values }>
