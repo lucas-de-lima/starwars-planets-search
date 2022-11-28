@@ -13,6 +13,7 @@ describe('Testando App', ()=> {
     expect(tatooine).toBeInTheDocument()
     const kamino = await screen.findByText(/Kamino/i)
     expect(kamino).toBeInTheDocument()
+    
   })
 
 })
