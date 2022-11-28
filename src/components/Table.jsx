@@ -13,6 +13,8 @@ export default function Table() {
 
   return (
     <div>
+      { !filtredPlanets.length && <p>Carregando...</p> }
+
       <table>
         <thead>
           <tr>

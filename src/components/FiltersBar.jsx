@@ -9,7 +9,7 @@ function FiltersBar() {
     valueFilter,
     setValueFilter,
     setFiltredPlanets, filters, setFilters,
-    columnSelect, setColumnSelect, SwData,
+    columnSelect, setColumnSelect, SwData, isLoading,
   } = useContext(SwPlanetsContext);
 
   useEffect(() => {
@@ -61,6 +61,7 @@ function FiltersBar() {
 
   return (
     <div>
+      { isLoading && <p>Carregando...</p> }
       <select
         data-testid="column-filter"
         value={ columnFilter }
