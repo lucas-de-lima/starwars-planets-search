@@ -10,6 +10,8 @@ function FiltersBar() {
     setValueFilter,
     setFiltredPlanets, filters, setFilters,
     columnSelect, setColumnSelect, SwData, isLoading,
+    columnSelectFilter, orderFilter, setOrderFilter,
+    click, setClick,
   } = useContext(SwPlanetsContext);
 
   useEffect(() => {
@@ -38,6 +40,10 @@ function FiltersBar() {
     setColumnFilter(columnSelect[0]);
   }, [filters, columnSelect]);
 
+  useEffect(() => {
+
+  }, [click]);
+
   const createNumericFilter = () => {
     setFilters((prevState) => [...prevState, {
       columnFilter,
@@ -57,6 +63,11 @@ function FiltersBar() {
     setFilters([]);
     setColumnSelect(['population', 'orbital_period',
       'diameter', 'rotation_period', 'surface_water']);
+  };
+
+  const orderResults = () => {
+    setClick((prevState) => !prevState);
+    console.log('teste');
   };
 
   return (
@@ -96,6 +107,46 @@ function FiltersBar() {
         Filtro
 
       </button>
+
+      <select
+        data-testid="column-sort"
+        value={ orderFilter.order.column }
+        onChange={ (event) => setOrderFilter({ order:
+         { ...orderFilter.order, column: event.target.value } }) }
+      >
+        { columnSelectFilter.map((option) => (
+          <option value={ option } key={ option }>{ option }</option>
+        )) }
+      </select>
+
+      <input
+        type="radio"
+        name="sort-radios"
+        value="ASC"
+        checked={ orderFilter.order.sort === 'ASC' }
+        onChange={ (event) => setOrderFilter({ order:
+         { ...orderFilter.order, sort: event.target.value } }) }
+        data-testid="column-sort-input-asc"
+      />
+      <input
+        type="radio"
+        name="sort-radios"
+        value="DESC"
+        checked={ orderFilter.order.sort === 'DESC' }
+        onChange={ (event) => setOrderFilter({ order:
+         { ...orderFilter.order, sort: event.target.value } }) }
+        data-testid="column-sort-input-desc"
+      />
+
+      <button
+        type="button"
+        onClick={ orderResults }
+        data-testid="column-sort-button"
+      >
+        Ordenar
+
+      </button>
+
       <button
         data-testid="button-remove-filters"
         type="button"

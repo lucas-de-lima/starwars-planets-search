@@ -4,12 +4,28 @@ import Planets from './Planets';
 
 export default function Table() {
   const { SwData, search, filtredPlanets,
-    setFiltredPlanets } = useContext(SwPlanetsContext);
+    setFiltredPlanets, click, orderFilter } = useContext(SwPlanetsContext);
 
   useEffect(() => {
     setFiltredPlanets(SwData.filter((element) => element.name
       .toUpperCase().includes((search.toUpperCase()))));
-  }, [search]);
+
+    const unknown = filtredPlanets
+      .filter((element) => element[orderFilter.order.column] === 'unknown');
+    const notUnknown = filtredPlanets
+      .filter((element) => element[orderFilter.order.column] !== 'unknown');
+
+    if (orderFilter.order.sort === 'ASC') {
+      const notUnknownSorted = notUnknown
+        .sort((a, b) => a[orderFilter.order.column] - b[orderFilter.order.column]);
+      setFiltredPlanets([...notUnknownSorted, ...unknown]);
+    }
+    if (orderFilter.order.sort === 'DESC') {
+      const notUnknownSorted = notUnknown
+        .sort((a, b) => b[orderFilter.order.column] - a[orderFilter.order.column]);
+      setFiltredPlanets([...notUnknownSorted, ...unknown]);
+    }
+  }, [search, click]);
 
   return (
     <div>
