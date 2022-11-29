@@ -9,7 +9,9 @@ export default function Table() {
   useEffect(() => {
     setFiltredPlanets(SwData.filter((element) => element.name
       .toUpperCase().includes((search.toUpperCase()))));
+  }, [search]);
 
+  useEffect(() => {
     const unknown = filtredPlanets
       .filter((element) => element[orderFilter.order.column] === 'unknown');
     const notUnknown = filtredPlanets
@@ -25,7 +27,7 @@ export default function Table() {
         .sort((a, b) => b[orderFilter.order.column] - a[orderFilter.order.column]);
       setFiltredPlanets([...notUnknownSorted, ...unknown]);
     }
-  }, [search, click]);
+  }, [click]);
 
   return (
     <div>

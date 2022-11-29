@@ -25,11 +25,6 @@ export default function SwPlanetsProvider({ children }) {
 
         const response = await fetch('https://swapi.dev/api/planets');
 
-        if (!response.ok) {
-          const newError = await response.json();
-          throw newError.message;
-        }
-
         const data = await response.json();
         const removeResidentsInDataArray = data.results.map((element) => {
           delete element.residents;
@@ -38,7 +33,7 @@ export default function SwPlanetsProvider({ children }) {
 
         setSwData(removeResidentsInDataArray);
       } catch (error) {
-        console.log('Error');
+        setErrors(error);
       } finally {
         // setLoading(false);
       }

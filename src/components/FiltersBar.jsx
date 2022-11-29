@@ -67,7 +67,6 @@ function FiltersBar() {
 
   const orderResults = () => {
     setClick((prevState) => !prevState);
-    console.log('teste');
   };
 
   return (
